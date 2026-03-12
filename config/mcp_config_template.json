@@ -1,0 +1,48 @@
+{
+  "mcpServers": {
+    "google-dev-knowledge": {
+      "url": "https://developerknowledge.googleapis.com/mcp?key=<YOUR_GOOGLE_DEV_KNOWLEDGE_API_KEY>"
+    },
+    "google_workspace": {
+      "command": "gws",
+      "args": ["mcp"],
+      "env": {
+        "GOOGLE_WORKSPACE_CLI_CLIENT_ID": "<YOUR_GWS_CLIENT_ID>",
+        "GOOGLE_WORKSPACE_CLI_CLIENT_SECRET": "<YOUR_GWS_CLIENT_SECRET>"
+      }
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_PAT>"
+      }
+    },
+    "airtable": {
+      "command": "npx",
+      "args": ["-y", "@rashidazarang/airtable-mcp"],
+      "env": {
+        "AIRTABLE_API_KEY": "<YOUR_AIRTABLE_API_KEY>"
+      }
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\":\"Bearer <YOUR_NOTION_TOKEN>\",\"Notion-Version\":\"2022-06-28\"}"
+      }
+    },
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "<YOUR_SLACK_BOT_TOKEN>",
+        "SLACK_TEAM_ID": "<YOUR_SLACK_TEAM_ID>"
+      }
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    }
+  }
+}

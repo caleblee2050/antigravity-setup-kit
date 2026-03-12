@@ -1,0 +1,78 @@
+{
+  "_description": "안티그래비티 파워 유저 스킬 매니페스트. 총 70개 스킬.",
+  "_usage": "npx skills add <source>@<skill-name> -g -y",
+  "categories": {
+    "문서_및_디자인": {
+      "source": "anthropics/skills",
+      "priority": "core",
+      "skills": [
+        "docx", "pdf", "pptx", "xlsx",
+        "frontend-design", "canvas-design", "brand-guidelines",
+        "web-artifacts-builder", "theme-factory",
+        "slack-gif-creator", "algorithmic-art", "json-canvas"
+      ]
+    },
+    "개발_워크플로우": {
+      "source": "anthropics/skills",
+      "priority": "core",
+      "skills": [
+        "brainstorming", "doc-coauthoring", "executing-plans",
+        "writing-plans", "planning-with-files",
+        "dispatching-parallel-agents", "subagent-driven-development",
+        "finishing-a-development-branch", "using-git-worktrees",
+        "using-superpowers", "writing-skills",
+        "lint-and-validate", "verification-before-completion",
+        "requesting-code-review", "receiving-code-review",
+        "systematic-debugging", "test-driven-development",
+        "create-pr", "find-skills", "skill-creator",
+        "internal-comms", "prompt-engineer", "notebooklm"
+      ]
+    },
+    "에이전트_아키텍처": {
+      "source": "anthropics/skills",
+      "priority": "recommended",
+      "skills": [
+        "context-fundamentals", "context-compression",
+        "context-degradation", "context-optimization",
+        "filesystem-context", "memory-systems",
+        "multi-agent-patterns", "hosted-agents",
+        "tool-design", "bdi-mental-states",
+        "evaluation", "advanced-evaluation",
+        "project-development", "agent-browser", "webapp-testing"
+      ]
+    },
+    "전문_기술": {
+      "source": "ComposioHQ/awesome-claude-skills",
+      "priority": "recommended",
+      "skills": [
+        "security-auditor", "docker-expert",
+        "api-design-principles", "database-design",
+        "architecture", "debugging-strategies",
+        "python-patterns", "react-patterns",
+        "typescript-expert", "rag-engineer",
+        "mcp-builder", "seo-audit", "ui-ux-pro-max"
+      ]
+    },
+    "Vercel_배포": {
+      "source": "vercel-labs/agent-skills",
+      "priority": "optional",
+      "skills": [
+        "vercel-deployment",
+        "vercel-react-best-practices",
+        "web-design-guidelines"
+      ]
+    },
+    "Obsidian": {
+      "source": "obsidianmd/obsidian-skills",
+      "priority": "optional",
+      "skills": ["obsidian-markdown", "obsidian-bases"]
+    },
+    "비디오_제작": {
+      "source": "remotion-dev/agent-skills",
+      "priority": "optional",
+      "skills": ["remotion-best-practices"]
+    }
+  },
+  "total_skills": 70,
+  "install_order": ["문서_및_디자인", "개발_워크플로우", "에이전트_아키텍처", "전문_기술", "Vercel_배포", "Obsidian", "비디오_제작"]
+}
