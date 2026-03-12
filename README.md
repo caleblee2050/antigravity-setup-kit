@@ -3,6 +3,7 @@
 **안티그래비티 파워 유저 세팅 원클릭 설치 패키지**
 
 다른 컴퓨터에 설치된 안티그래비티에서 이 패키지 하나로 동일한 환경을 구성할 수 있습니다.
+**macOS, Windows 모두 지원합니다.**
 
 ---
 
@@ -15,7 +16,20 @@
 | 워크플로우 | 2개 | 스킬 검색/관리 자동화 |
 | 브라우저 허용 목록 | 82개 도메인 | 개발에 필요한 웹사이트 |
 | 유저 규칙 템플릿 | 1개 | 추천 설정 가이드 |
-| 모바일 에이전트 | 선택 | Telegram으로 원격 제어 |
+| 모바일 에이전트 | 선택 | Telegram으로 원격 제어 (macOS 전용) |
+
+---
+
+## 🖥️ 지원 OS
+
+| 기능 | macOS | Windows |
+|------|-------|---------|
+| MCP 서버 설정 | ✅ | ✅ |
+| 스킬 설치 | ✅ | ✅ |
+| 워크플로우 | ✅ | ✅ |
+| 브라우저 허용 목록 | ✅ | ✅ |
+| 유저 규칙 | ✅ | ✅ |
+| 모바일 에이전트 | ✅ | ❌ (macOS 전용) |
 
 ---
 
@@ -37,8 +51,11 @@ npx skills add caleblee2050/antigravity-setup-kit -g -y
 # 1. 이 레포를 클론
 git clone https://github.com/caleblee2050/antigravity-setup-kit.git
 
-# 2. 스킬 폴더에 복사
+# 2. 스킬 폴더에 복사 (macOS)
 cp -r antigravity-setup-kit ~/.gemini/antigravity/skills/antigravity-setup-kit
+
+# 2. 스킬 폴더에 복사 (Windows PowerShell)
+# Copy-Item -Recurse antigravity-setup-kit "$env:USERPROFILE\.gemini\antigravity\skills\antigravity-setup-kit"
 ```
 
 그 다음 안티그래비티에게:
@@ -61,8 +78,6 @@ cp -r antigravity-setup-kit ~/.gemini/antigravity/skills/antigravity-setup-kit
 | Slack | 팀 커뮤니케이션 | ✅ Bot Token |
 | Memory | 에이전트 기억 저장 | ❌ 불필요 |
 
-> **💡 참고**: 사용하지 않는 서비스는 건너뛸 수 있습니다. Memory는 키 없이 바로 작동합니다.
-
 ### 스킬 카테고리 (70개)
 
 | 카테고리 | 수량 | 주요 스킬 |
@@ -77,19 +92,14 @@ cp -r antigravity-setup-kit ~/.gemini/antigravity/skills/antigravity-setup-kit
 
 ---
 
-## 📱 (선택) 모바일 에이전트
+## 📱 (선택) 모바일 에이전트 — macOS 전용
 
-Telegram으로 어디서든 안티그래비티를 제어할 수 있는 모바일 에이전트:
+> ⚠️ **Windows 미지원**: AppleScript/macOS 접근성 API 기반이므로 macOS에서만 작동합니다.
 
 ```bash
 git clone https://github.com/caleblee2050/antigravity-mobile-agent.git
 cd antigravity-mobile-agent && bash setup.sh
 ```
-
-**필요 사항:**
-- macOS (접근성 + 화면 녹화 권한)
-- Telegram Bot Token (@BotFather에서 발급)
-- Python 3.10+
 
 ---
 
@@ -97,8 +107,9 @@ cd antigravity-mobile-agent && bash setup.sh
 
 ```
 antigravity-setup-kit/
-├── SKILL.md                          # 메인 설치 지침서 (Antigravity가 읽음)
+├── SKILL.md                          # 메인 설치 지침서
 ├── README.md                         # 이 파일
+├── LICENSE
 ├── config/
 │   ├── mcp_config_template.json      # MCP 서버 설정 템플릿
 │   ├── skills_manifest.json          # 70개 스킬 목록
@@ -119,8 +130,8 @@ A. MCP 설정 5분 + 스킬 설치 10~15분 정도입니다.
 **Q. 기존 설정이 덮어씌워지나요?**
 A. 아닙니다. mcp_config.json이 이미 있으면 백업을 먼저 만듭니다.
 
-**Q. 스킬 설치 중 오류가 나면?**
-A. 일부 스킬은 저장소 구조에 따라 설치가 안 될 수 있습니다. 안 되는 것은 건너뛰고 나중에 수동 설치하세요.
+**Q. Windows에서도 되나요?**
+A. 네! 모바일 에이전트를 제외한 모든 기능이 Windows에서 작동합니다.
 
 **Q. API 키는 안전한가요?**
 A. 모든 키는 로컬 `mcp_config.json`에만 저장됩니다. 이 패키지에는 키가 포함되지 않습니다.
