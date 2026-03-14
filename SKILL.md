@@ -249,6 +249,30 @@ cd ~/dev/antigravity-mobile-agent && bash setup.sh
 
 > `ENABLE_STT=false`(기본값)이면 음성 메시지 수신 시 안내 메시지만 표시됩니다.
 
+### 6-5. 카카오톡 연동 (선택 — 한국 사용자 권장)
+
+> **설치 전 질문**: "카카오톡 메시지 연동을 설정할까요?"
+> → **N 선택 시**: 이 단계를 건너뛰고 STEP 7로.
+
+1. [Kakao Developers](https://developers.kakao.com/)에서 앱 생성
+2. **카카오 로그인** 활성화
+3. **앱** → **플랫폼 키** → REST API 키에서 **Redirect URI** 등록: `http://localhost:9250/oauth`
+4. **동의항목**에서 `talk_message`(카카오톡 메시지 전송), `friends`(친구목록) 권한 활성화
+5. `.env` 파일 설정:
+   ```ini
+   KAKAO_REST_API_KEY=발급받은_REST_API_키
+   KAKAO_CLIENT_SECRET=클라이언트_시크릿
+   KAKAO_REDIRECT_URI=http://localhost:9250/oauth
+   ```
+6. OAuth 인증:
+   ```bash
+   python kakao_api.py auth
+   ```
+7. 테스트:
+   ```bash
+   python kakao_api.py send "카카오톡 연동 테스트!"
+   ```
+
 필요: macOS 접근성/화면녹화 권한
 
 ---
