@@ -16,7 +16,7 @@
 | 워크플로우 | 2개 | 스킬 검색/관리 자동화 |
 | 브라우저 허용 목록 | 82개 도메인 | 개발에 필요한 웹사이트 |
 | 유저 규칙 템플릿 | 1개 | 추천 설정 가이드 |
-| 모바일 에이전트 | 선택 | Telegram으로 원격 제어 (macOS 전용) |
+| 모바일 에이전트 | 선택 | Telegram으로 원격 제어 (macOS/Windows) |
 
 ---
 
@@ -29,7 +29,7 @@
 | 워크플로우 | ✅ | ✅ |
 | 브라우저 허용 목록 | ✅ | ✅ |
 | 유저 규칙 | ✅ | ✅ |
-| 모바일 에이전트 | ✅ | ❌ (macOS 전용) |
+| 모바일 에이전트 | ✅ | ✅ |
 
 ---
 
@@ -92,9 +92,9 @@ cp -r antigravity-setup-kit ~/.gemini/antigravity/skills/antigravity-setup-kit
 
 ---
 
-## 📱 (선택) 모바일 에이전트 — macOS 전용
+## 📱 (선택) 모바일 에이전트 — macOS / Windows
 
-> ⚠️ **Windows 미지원**: AppleScript/macOS 접근성 API 기반이므로 macOS에서만 작동합니다.
+> 텔레그램 봇으로 모바일에서 안티그래비티를 원격 제어합니다. macOS(`launchd` + `AppleScript`), Windows(`Task Scheduler` + `pygetwindow`) 모두 지원.
 
 ```bash
 git clone https://github.com/caleblee2050/antigravity-mobile-agent.git
@@ -131,7 +131,7 @@ A. MCP 설정 5분 + 스킬 설치 10~15분 정도입니다.
 A. 아닙니다. mcp_config.json이 이미 있으면 백업을 먼저 만듭니다.
 
 **Q. Windows에서도 되나요?**
-A. 네! 모바일 에이전트를 제외한 모든 기능이 Windows에서 작동합니다.
+A. 네! MCP 설정, 스킬, 워크플로우는 물론 모바일 에이전트도 Windows에서 작동합니다 (Task Scheduler + pygetwindow).
 
 **Q. API 키는 안전한가요?**
 A. 모든 키는 로컬 `mcp_config.json`에만 저장됩니다. 이 패키지에는 키가 포함되지 않습니다.
