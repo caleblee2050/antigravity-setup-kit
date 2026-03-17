@@ -1,6 +1,6 @@
 ---
 name: antigravity-setup-kit
-description: "안티그래비티 파워 유저 세팅 원클릭 설치. '안티그래비티 세팅해줘'라고 요청하면 MCP 서버, 스킬 70개, 워크플로우, 브라우저 허용 목록, 모바일 에이전트까지 자동 구성. macOS/Windows 모두 지원."
+description: "안티그래비티 파워 유저 세팅 원클릭 설치. '안티그래비티 세팅해줘'라고 요청하면 MCP 서버, 스킬 75개, 워크플로우, 브라우저 허용 목록, 모바일 에이전트까지 자동 구성. macOS/Windows 모두 지원."
 ---
 
 # 안티그래비티 파워 유저 세팅 원클릭 설치
@@ -72,7 +72,7 @@ npm i -g @anthropic/gws
 
 ---
 
-## STEP 2. 스킬 70개 일괄 설치
+## STEP 2. 스킬 75개 일괄 설치
 
 `config/skills_manifest.json`을 읽고 설치. `npx skills add` 명령은 **OS 무관** 동일 작동.
 
@@ -138,7 +138,7 @@ npx skills add anthropics/skills@agent-browser -g -y
 npx skills add anthropics/skills@webapp-testing -g -y
 ```
 
-### 2-4. 전문 기술 (20개)
+### 2-4. 전문 기술 (19개)
 ```bash
 npx skills add ComposioHQ/awesome-claude-skills@security-auditor -g -y
 npx skills add ComposioHQ/awesome-claude-skills@docker-expert -g -y
@@ -158,7 +158,16 @@ npx skills add vercel-labs/agent-skills@vercel-react-best-practices -g -y
 npx skills add vercel-labs/agent-skills@web-design-guidelines -g -y
 npx skills add obsidianmd/obsidian-skills@obsidian-markdown -g -y
 npx skills add obsidianmd/obsidian-skills@obsidian-bases -g -y
-npx skills add remotion-dev/agent-skills@remotion-best-practices -g -y
+```
+
+### 2-5. 마케팅 & 자동화 (6개)
+```bash
+npx skills add jamditis/claude-skills-journalism@web-scraping -g -y
+npx skills add inferen-sh/skills@ai-social-media-content -g -y
+npx skills add anthropics/knowledge-work-plugins@data-visualization -g -y
+npx skills add inferen-sh/skills@email-design -g -y
+npx skills add kostja94/marketing-skills@email-marketing -g -y
+npx skills add claude-dev-suite/claude-dev-suite@cron-scheduling -g -y
 ```
 
 > **💡**: 이미 존재하는 스킬은 자동 건너뜁니다. 5~10개씩 묶어서 실행 권장.
@@ -209,17 +218,31 @@ Copy-Item config\browser_allowlist.txt "$env:USERPROFILE\.gemini\antigravity\bro
 
 ### 6-1. 설치
 
-**macOS / Linux:**
+**가장 쉬운 방법 (한 줄 설치):**
+
+macOS / Linux:
 ```bash
-git clone https://github.com/caleblee2050/antigravity-mobile-agent.git ~/dev/antigravity-mobile-agent
-cd ~/dev/antigravity-mobile-agent && bash setup.sh
+curl -sL a4k.ai/setup | bash
 ```
 
-**Windows (PowerShell):**
+Windows (PowerShell):
 ```powershell
-git clone https://github.com/caleblee2050/antigravity-mobile-agent.git "$env:USERPROFILE\dev\antigravity-mobile-agent"
-cd "$env:USERPROFILE\dev\antigravity-mobile-agent"
-pip install -r requirements.txt
+irm a4k.ai/setup.ps1 | iex
+```
+
+**수동 설치:**
+
+macOS / Linux:
+```bash
+git clone https://github.com/caleblee2050/antigravity-agent.git ~/dev/antigravity-agent
+cd ~/dev/antigravity-agent && bash setup/setup.sh
+```
+
+Windows (PowerShell):
+```powershell
+git clone https://github.com/caleblee2050/antigravity-agent.git "$env:USERPROFILE\dev\antigravity-agent"
+cd "$env:USERPROFILE\dev\antigravity-agent"
+powershell -ExecutionPolicy Bypass -File setup\setup.ps1
 ```
 
 ### 6-2. 텔레그램 봇 설정 (기본 인터페이스)
@@ -242,19 +265,17 @@ pip install -r requirements.txt
 - 이후 모든 대화에서 설정된 호칭을 사용합니다.
 - 설정은 `agent_config.json`에 저장됩니다.
 
-### 6-4. 음성 인식(STT) 활성화 (선택)
+### 6-4. 음성 인식(STT) — 자동 활성화
 
-텔레그램 음성 메시지를 텍스트로 자동 변환하는 기능입니다.
+텔레그램 음성 메시지를 텍스트로 자동 변환합니다.
+**Whisper** 로컬 모델을 사용하며, API 키가 필요 없습니다 (완전 무료).
 
-1. [Google Cloud Console](https://console.cloud.google.com/)에서 `Cloud Speech-to-Text API` 활성화
-2. **사용자 인증 정보** > **API 키 만들기**
-3. `.env` 파일:
-   ```ini
-   ENABLE_STT=true
-   GOOGLE_CLOUD_API_KEY=발급받은_키
-   ```
+`.env` 파일:
+```ini
+ENABLE_STT=true   # 기본값 — 추가 설정 불필요
+```
 
-> `ENABLE_STT=false`(기본값)이면 음성 메시지 수신 시 안내 메시지만 표시됩니다.
+> 첫 실행 시 모델(~74MB)이 자동 다운로드됩니다.
 
 ### 6-5. 카카오톡 연동 (선택 — 한국 사용자 권장)
 
@@ -286,16 +307,67 @@ pip install -r requirements.txt
 
 ---
 
-## STEP 7. anti-agent 워크스페이스
+## STEP 7. 에이전트 워크스페이스 시스템
 
-모바일에서 지시가 들어오면 작업할 전용 폴더를 생성합니다.
+모바일에서 지시가 들어오면 작업할 전용 폴더를 생성하고, 멀티 창 자동 타겟팅을 설정합니다.
 
+### 7-1. 에이전트 전용 폴더 생성
+
+**macOS / Linux:**
 ```bash
 mkdir -p ~/.gemini/antigravity/anti-agent
 ```
 
-이 폴더는 `[📱 모바일]` 접두어 요청의 기본 작업 디렉토리로 사용됩니다.
-모바일 워크플로우(`mobile-reply.md`)에 자동 반영됩니다.
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.gemini\antigravity\anti-agent"
+```
+
+### 7-2. 에이전트 폴더 경로 설정
+
+사용자에게 에이전트 폴더 경로를 확인합니다:
+> "에이전트 전용 폴더를 `~/.gemini/antigravity/anti-agent`로 설정할까요? 다른 경로를 원하시면 알려주세요."
+
+`agent_config.json`의 `workspace.agent_folder`에 경로를 저장합니다:
+```json
+{
+  "workspace": {
+    "agent_folder": "~/.gemini/antigravity/anti-agent",
+    "target_window_index": null
+  }
+}
+```
+
+### 7-3. `/에이전트` 워크플로우 설치
+
+안티그래비티에서 `/에이전트` 라고 입력하면 에이전트 폴더를 새 창으로 자동 오픈합니다.
+
+**macOS / Linux:**
+```bash
+mkdir -p ~/.gemini/antigravity/.agents/workflows/
+```
+
+다음 내용으로 `에이전트.md` 워크플로우를 생성합니다:
+```markdown
+---
+description: 에이전트 전용 폴더로 새 안티그래비티 창 열기
+---
+// turbo-all
+1. 에이전트 폴더 생성: `mkdir -p ~/.gemini/antigravity/anti-agent`
+2. 새 창으로 열기: `antigravity --new-window ~/.gemini/antigravity/anti-agent`
+```
+
+### 7-4. 멀티 창 관리 (텔레그램 명령어)
+
+모바일 에이전트 설치 시, 다음 텔레그램 명령어가 자동 제공됩니다:
+
+| 명령어 | 설명 |
+|--------|------|
+| `/windows` | 열린 안티그래비티 창 목록 + 현재 타겟 표시 |
+| `/target 2` | 2번 창으로 타겟 변경 |
+| `/target auto` | 자동 탐색 모드 (에이전트 폴더명 매칭) |
+
+> **자동 타겟팅**: 텔레그램 메시지 전송 시, 창 제목에 에이전트 폴더명(`anti-agent`)이 포함된 창을 자동으로 찾아 입력합니다.
 
 ---
 
